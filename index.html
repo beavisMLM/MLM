@@ -6,7 +6,8 @@
 <script>
 async function load() {
   try {
-    const res = await fetch("http://185.83.152.104");
+    // Use a CORS/HTTPS proxy so GitHub Pages can fetch your HTTP server
+    const res = await fetch("https://cors-anywhere.herokuapp.com/http://185.83.152.104");
     const data = await res.json();
     document.getElementById("data").innerHTML = `
       🌍 Time: ${data.Time}<br>
@@ -18,6 +19,8 @@ async function load() {
     console.error(err);
   }
 }
+
+// Refresh every second
 setInterval(load, 1000);
 load();
 </script>
