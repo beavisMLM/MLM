@@ -6,9 +6,9 @@
 <script>
 async function load() {
   try {
-    const res = await fetch("https://api.codetabs.com/v1/proxy?quest=http://185.83.152.104");
-const text = await res.text();
-const data = JSON.parse(text);
+    const res = await fetch("https://api.allorigins.win/raw?url=http://185.83.152.104");
+    const text = await res.text();
+    const data = JSON.parse(text);
 
     document.getElementById("data").innerHTML = `
       🌍 Time: ${data.Time}<br>
