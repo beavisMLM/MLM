@@ -1,6 +1,10 @@
 export default async function handler(req, res) {
   try {
-    const r = await fetch("http://185.83.152.104");
+    // Simple GET request with no extra headers
+    const r = await fetch("http://185.83.152.104", {
+      method: "GET",
+    });
+
     const text = await r.text();
 
     res.setHeader("Content-Type", "application/json");
