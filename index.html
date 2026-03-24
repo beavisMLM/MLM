@@ -4,17 +4,23 @@
 <div id="data">Loading...</div>
 
 <script>
-async function load() {
-  const res = await fetch("http://185.83.152.104");
-  const data = await res.json();
+const data = {
+  Time: "14:30",
+  Weather: "Sunny",
+  Aerostat: "Active"
+};
+
+function updateDisplay() {
   document.getElementById("data").innerHTML = `
     🌍 Time: ${data.Time}<br>
     🌦 Weather: ${data.Weather}<br>
     📍 Aerostat: ${data.Aerostat}
   `;
 }
-setInterval(load, 1000);
-load();
+
+// Update every second if you want it to refresh
+setInterval(updateDisplay, 1000);
+updateDisplay();
 </script>
 </body>
 </html>
