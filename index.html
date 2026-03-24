@@ -11,9 +11,9 @@ async function load() {
     const data = JSON.parse(text);
 
     document.getElementById("data").innerHTML = `
-      🌍 Time: ${data.time}<br>
-      🌦 Weather: ${data.weather}<br>
-      📍 Aerostat: ${data.aerostat}
+      🌍 Time: ${data.Time}<br>
+      🌦 Weather: ${data.Weather}<br>
+      📍 Aerostat: ${data.Aerostat}
     `;
   } catch (err) {
     document.getElementById("data").innerHTML = "Error loading data";
