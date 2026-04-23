@@ -558,8 +558,23 @@ button:hover { background: #ff5a3c; }
     <a href="https://discord.gg/CgS6Gjhx">Join Server</a>
   </div>
   <form id="orderForm">
-    <input type="text" id="wallet" placeholder="Wallet ID" required>
-    <input type="text" id="tx" placeholder="TX Hash" required>
+<input 
+  type="text" 
+  id="wallet" 
+  placeholder="Wallet ID" 
+  pattern="[A-Z]{60}" 
+  required
+  oninvalid="this.setCustomValidity('60 CAPITAL LETTERS format required')" 
+  oninput="this.value = this.value.toUpperCase(); this.setCustomValidity('')"
+><input 
+  type="text" 
+  id="tx" 
+  placeholder="TX Hash" 
+  pattern="[a-z]{60}" 
+  required
+  oninvalid="this.setCustomValidity('60 small letters format required')" 
+  oninput="this.value = this.value.toUpperCase(); this.setCustomValidity('')"
+>
     <h2>Select Grayprints</h2>
     <div class="order-grid">
       <div class="order-item">Anti-vehicle Hedgehog<input type="number" id="i1" min="0" value="0"></div>
