@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PRINTER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  background: #050505;
+  color: #e0e0e0;
+  font-family: monospace;
+  scroll-behavior: smooth;
+}
+.hero {
+  width: 100%;
+  height: 100vh;
+  background: url("printer.png") top center no-repeat;
+  background-size: contain;
+  background-color: black;
+}
+.section {
+  padding: 80px 20px;
+  max-width: 900px;
+  margin: auto;
+}
+h1 { color: #ff3c1f; font-size: 42px; }
+h2 { color: #ff3c1f; }
+p { line-height: 1.6; }
+.steps { margin-top: 30px; }
+.step { margin-bottom: 10px; }
+.important {
+  margin-top: 40px;
+  padding: 20px;
+  border: 1px solid #ff3c1f;
+  background: rgba(255,60,31,0.05);
+}
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+  font-family: monospace;
+}
+button {
+  padding: 12px 20px;
+  background: #ff3c1f;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+button:hover { background: #ff5a3c; }
+.discord-box {
+  margin-bottom:20px;
+  padding:15px;
+  border:1px solid #5865F2;
+  background:rgba(88,101,242,0.08);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 60px;
+  background: #0a0a0a;
+  border-right: 2px solid #ff3c1f;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  z-index: 9999;
+}
+.sidebar:hover { width: 220px; }
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  color: #e0e0e0;
+  text-decoration: none;
+  border-bottom: 1px solid #1a1a1a;
+}
+.nav-item:hover { background: rgba(255,60,31,0.1); }
+.nav-item.active {
+  background: rgba(255,60,31,0.25);
+  border-left: 3px solid #ff3c1f;
+}
+.nav-icon { min-width: 30px; color: #ff3c1f; }
+.nav-text {
+  opacity: 0;
+  margin-left: 10px;
+  transition: 0.2s;
+}
+.sidebar:hover .nav-text { opacity: 1; }
+
+/* Marketplace */
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+.card {
+  background: #0b0b0b;
+  border: 1px solid #222;
+  padding: 15px;
+  text-align: center;
+  transition: 0.2s;
+}
+.card:hover {
+  border-color: #ff3c1f;
+  transform: translateY(-3px);
+  box-shadow: 0 0 12px rgba(255,60,31,0.2);
+}
+.card img {
+  width: 135px;
+  height: 135px;
+  image-rendering: pixelated;
+}
+.card h3 {
+  margin: 8px 0 5px;
+}
+.card .desc {
+  font-size: 12px;
+  opacity: 0.7;
+}
+.card .price {
+  margin-top: 8px;
+  color: #ff3c1f;
+  font-weight: bold;
+}
+.card a {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #aaa;
+  text-decoration: none;
+}
+
+/* + and - icons */
+.quantity-controls {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+.plus {
+  color: #00cc00;
+}
+.minus {
+  color: #0066ff;        /* Changed to blue */
+}
+.plus:hover { color: #00ff00; }
+.minus:hover { color: #3399ff; }   /* Lighter blue hover */
+
+.quantity-display {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #ff3c1f;
+  font-weight: bold;
+  min-height: 22px;
+}
+
+/* Original Order Form */
+.order-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 20px 0;
+}
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  border: 1px solid #222;
+  background: #0d0d0d;
+}
+.order-item input {
+  width: 60px;
+  margin: 0;
+  padding: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <a class="nav-item" href="#"><div class="nav-icon">⌂</div><div class="nav-text">HOME</div></a>
+  <a class="nav-item" href="#home"><div class="nav-icon">?</div><div class="nav-text">HOW IT WORKS</div></a>
+  <a class="nav-item" href="#offer"><div class="nav-icon">★</div><div class="nav-text">OFFER</div></a>
+  <a class="nav-item" href="#submit"><div class="nav-icon">✉</div><div class="nav-text">SUBMIT</div></a>
+  <a class="nav-item" href="#join"><div class="nav-icon">+</div><div class="nav-text">JOIN US</div></a>
+  <a class="nav-item" href="whitepaper.html"><div class="nav-icon">📄</div><div class="nav-text">WHITEPAPER</div></a>
+</div>
+
+<div class="hero"></div>
+
+<!-- HOME -->
+<div id="home" class="section">
+  <h1>PRINTER TOKEN</h1>
+  <strong>Grayprints (GPs)</strong> Grayprints are single-use crafting documents in <a href="https://mylastmatch.fandom.com" target="_blank">My Last Match</a> that originate from a parent Whiteprint. Each Grayprint represents one authorized attempt to craft a specific item. The PRINTER token unlocks exclusive access to a curated subset of some of the most crucial in-game technologies—core systems that directly impact survival and character power progression—such as the Geiger Counter, Faraday Casing, and Rubber Accumulator. While additional Whiteprints can still be obtained through alternative channels outside PRINTER, this set represents the backbone of high-impact survival tooling within the ecosystem. Grayprints form a crucial part of the game’s economic and crafting structure.
+
+  <h2>How It Works</h2>
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; justify-content: center;">
+    <img src="printer-token-steps.png" alt="PRINTER TOKEN - How it works"
+         style="width: 460px; height: 460px; image-rendering: pixelated; border: 4px solid #222; box-shadow: 0 0 25px #0a0; flex-shrink: 0;">
+    <div style="flex: 1; min-width: 320px; max-width: 460px; font-size: 1.22em; line-height: 1.55;">
+      <div class="steps" style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="step"><strong>1.</strong> Purchase PRINTER Tokens on <strong>QUBICTRADE.COM</strong></div>
+        <div class="step"><strong>2.</strong> *Send the tokens to the shop address:<br>
+          <span style="font-size: 0.94em; opacity: 0.9;"><strong>PRINTERRADJSFEITRUBFSRJFVZVAWQOWOOMVEPYVVCTKAXNHVLMHQQJFZDXZ</strong></span>
+        </div>
+        <div class="step"><strong>3.</strong> Submit the Order Form – this will automatically generate a support ticket in our Discord</div>
+        <div class="step"><strong>4.</strong> We will notify you via Discord once your Grayprints (GPs) are ready for collection at the Hospital</div>
+      </div>
+      <div class="important" style="margin-top: 40px; padding: 16px 20px; background: #220000; border: 3px solid #ff4444; color: #ffdddd; font-weight: bold; font-size: 1.15em; text-align: center; line-height: 1.4;">
+        *Your Wallet ID must match your MLM Character's ID
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFER -->
+<div id="offer" class="section">
+  <h1>PRINTER-exclusive GPs:</h1>
+  <div class="market-grid">
+    <!-- All main cards with + / - -->
+    <div class="card" data-item-id="i19">
+      <img src="grayprint-spiked-club.png">
+      <h3>Spiked Club</h3>
+      <p class="desc">Melee weapon.</p>
+      <div class="price">90 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Spiked_Club" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i10">
+      <img src="grayprint-handgun.png">
+      <h3>Handgun</h3>
+      <p class="desc">Sidearm.</p>
+      <div class="price">350 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Handgun" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i11">
+      <img src="grayprint-handgun-shot.png">
+      <h3>Handgun Shot</h3>
+      <p class="desc">Ammo pack.</p>
+      <div class="price">60 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Handgun_Shot" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i9">
+      <img src="grayprint-geiger-counter.png">
+      <h3>Geiger Counter</h3>
+      <p class="desc">Radiation detector.</p>
+      <div class="price">220 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Geiger_Counter" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i18">
+      <img src="grayprint-rubber-accumulator.png">
+      <h3>Rubber Accumulator</h3>
+      <p class="desc">Portable power.</p>
+      <div class="price">200 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Rubber_Accumulator" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i2">
+      <img src="grayprint-battery-adapter.png">
+      <h3>Battery Adapter</h3>
+      <p class="desc">Universal connector.</p>
+      <div class="price">110 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Battery_Adapter" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i5">
+      <img src="grayprint-faraday-casing.png">
+      <h3>Faraday Casing</h3>
+      <p class="desc">Thunder protection.</p>
+      <div class="price">260 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Faraday_Casing" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i22">
+      <img src="grayprint-universal-camo.png">
+      <h3>Universal Camo</h3>
+      <p class="desc">Adaptive camouflage.</p>
+      <div class="price">310 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Universal_Camouflage" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i7">
+      <img src="grayprint-forest-camo.png">
+      <h3>Forest Camo</h3>
+      <p class="desc">Woodland camouflage.</p>
+      <div class="price">140 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Forest_Camouflage" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i4">
+      <img src="grayprint-directional-antenna.png">
+      <h3>Directional Antenna</h3>
+      <p class="desc">Signal booster.</p>
+      <div class="price">175 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Directional_Antenna" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i8">
+      <img src="grayprint-fuel-siphon.png">
+      <h3>Fuel Siphon</h3>
+      <p class="desc">Extracts diesel & gas.</p>
+      <div class="price">45 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Fuel_Siphon" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i6">
+      <img src="grayprint-fish-trap.png">
+      <h3>Fish Trap</h3>
+      <p class="desc">Passive fishing.</p>
+      <div class="price">85 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Fish_Trap" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i15">
+      <img src="grayprint-last-drink.png">
+      <h3>Last Drink</h3>
+      <p class="desc">Delays death.</p>
+      <div class="price">45 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Last_Drink" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i13">
+      <img src="grayprint-jaw-lock.png">
+      <h3>Jaw Lock</h3>
+      <p class="desc">Animal bait.</p>
+      <div class="price">130 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Jaw_Lock" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i14">
+      <img src="grayprint-ketchup-vibration-detector.png">
+      <h3>Ketchup Detector</h3>
+      <p class="desc">Trigger mechanism.</p>
+      <div class="price">95 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Ketchup_Vibration_Detector" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i21">
+      <img src="grayprint-trip-trap.png">
+      <h3>Trip Trap</h3>
+      <p class="desc">Slippery ambush.</p>
+      <div class="price">120 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Trip_Trap" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i17">
+      <img src="grayprint-muffler-whistle.png">
+      <h3>Muffler Whistle</h3>
+      <p class="desc">Vehicle honeypot trap.</p>
+      <div class="price">150 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Muffler_Whistle" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i1">
+      <img src="grayprint-anti-vehicle-hedgehogs.png">
+      <h3>Hedgehogs</h3>
+      <p class="desc">Vehicle blockade.</p>
+      <div class="price">280 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Anti-Vehicle_Hedgehogs" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i16">
+      <img src="grayprint-mine-sweeper.png">
+      <h3>Mine Sweeper</h3>
+      <p class="desc">Clears mines and traps.</p>
+      <div class="price">450 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Mine_Sweeper" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i3">
+      <img src="grayprint-crash-cocoon.png">
+      <h3>Crash Cocoon</h3>
+      <p class="desc">Every vehicle's essential.</p>
+      <div class="price">320 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Crash_Cocoon" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i12">
+      <img src="grayprint-headlight-lid.png">
+      <h3>Headlight Lid</h3>
+      <p class="desc">Armored light protection.</p>
+      <div class="price">180 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Headlight_Lid" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+  </div>
+
+  <h1 style="margin-top: 50px;">Partners GPs:</h1>
+  <div class="market-grid">
+    <div class="card" data-item-id="i20">
+      <img src="grayprint-thermodifferentiator.png">
+      <h3>Thermodifferentiator</h3>
+      <p class="desc">Tracks enemies.</p>
+      <div class="price">45 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Thermodifferentiator" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i23"> <!-- New ID i23 -->
+      <img src="grayprint-tin-can-grenade.png">
+      <h3>Tin Can Grenade</h3>
+      <p class="desc">Throwable explosives.</p>
+      <div class="price">45 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Tin_Can_Grenade" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i24"> <!-- New ID i24 -->
+      <img src="grayprint-crow-amulet.png">
+      <h3>Crow Amulet</h3>
+      <p class="desc">Protects from Dementals.</p>
+      <div class="price">45 PRINTER</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Crow_Amulet" target="_blank">→ wiki</a>
+      <div class="quantity-controls">
+        <span class="minus">-</span>
+        <span class="plus">+</span>
+      </div>
+      <div class="quantity-display"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT ORDER - Original Style -->
+<div id="submit" class="section">
+  <h1>SUBMIT ORDER</h1>
+  <div class="discord-box">
+    Join Discord to receive updates on your order<br><br>
+    <a href="https://discord.gg/CgS6Gjhx">Join Server</a>
+  </div>
+  <form id="orderForm">
+    <input type="text" id="wallet" placeholder="Wallet ID" required>
+    <input type="text" id="tx" placeholder="TX Hash" required>
+    <h2>Select Grayprints</h2>
+    <div class="order-grid">
+      <div class="order-item">Anti-vehicle Hedgehog<input type="number" id="i1" min="0" value="0"></div>
+      <div class="order-item">Battery Adapter<input type="number" id="i2" min="0" value="0"></div>
+      <div class="order-item">Crash Cocoon<input type="number" id="i3" min="0" value="0"></div>
+      <div class="order-item">Directional Antenna<input type="number" id="i4" min="0" value="0"></div>
+      <div class="order-item">Faraday Casing<input type="number" id="i5" min="0" value="0"></div>
+      <div class="order-item">Fish Trap<input type="number" id="i6" min="0" value="0"></div>
+      <div class="order-item">Forest Camo<input type="number" id="i7" min="0" value="0"></div>
+      <div class="order-item">Fuel Siphon<input type="number" id="i8" min="0" value="0"></div>
+      <div class="order-item">Geiger Counter<input type="number" id="i9" min="0" value="0"></div>
+      <div class="order-item">Handgun<input type="number" id="i10" min="0" value="0"></div>
+      <div class="order-item">Handgun Shot<input type="number" id="i11" min="0" value="0"></div>
+      <div class="order-item">Headlight Lid<input type="number" id="i12" min="0" value="0"></div>
+      <div class="order-item">Jaw Lock<input type="number" id="i13" min="0" value="0"></div>
+      <div class="order-item">Ketchup Vibration Detector<input type="number" id="i14" min="0" value="0"></div>
+      <div class="order-item">Last Drink<input type="number" id="i15" min="0" value="0"></div>
+      <div class="order-item">Mine Sweeper<input type="number" id="i16" min="0" value="0"></div>
+      <div class="order-item">Muffler Whistle<input type="number" id="i17" min="0" value="0"></div>
+      <div class="order-item">Rubber Accumulator<input type="number" id="i18" min="0" value="0"></div>
+      <div class="order-item">Spiked Club<input type="number" id="i19" min="0" value="0"></div>
+      <div class="order-item">Thermodifferentiator<input type="number" id="i20" min="0" value="0"></div>
+      <div class="order-item">Trip Trap<input type="number" id="i21" min="0" value="0"></div>
+      <div class="order-item">Universal Camo<input type="number" id="i22" min="0" value="0"></div>
+      <!-- New items for the two extra cards -->
+      <div class="order-item">Tin Can Grenade<input type="number" id="i23" min="0" value="0"></div>
+      <div class="order-item">Crow Amulet<input type="number" id="i24" min="0" value="0"></div>
+    </div>
+    <button type="submit">Submit Order</button>
+  </form>
+</div>
+
+<!-- JOIN -->
+<div id="join" class="section">
+  <h1>JOIN US</h1>
+  <p>If you own Whiteprint in My Last Match and would like to get involved in PRINTER project you can join us.</p>
+  <div class="important">
+    Deliver Grayprints to Hospital — we will sell them and pay you <b>90% revenue (QUs)</b>.<br>
+    PRINTER takes a <b>10% fee</b>.
+  </div>
+  <div class="steps">
+    <div class="step">• Monthly payouts</div>
+    <div class="step">• Withdraw anytime</div>
+    <div class="step">• Collect remaining Grayprints anytime</div>
+    <div class="step">• Paid at end of each month</div>
+  </div>
+  <div class="discord-box">
+    Ping <b>Beavis (beavis_76350)</b> in Discord <a href="https://discord.gg/CgS6Gjhx">PRINTER</a> channel. Do NOT DM.
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    const itemId = card.dataset.itemId;
+    const input = document.getElementById(itemId);
+    const display = card.querySelector('.quantity-display');
+    const plus = card.querySelector('.plus');
+    const minus = card.querySelector('.minus');
+
+    if (!input || !plus) return;
+
+    plus.addEventListener('click', () => {
+      let val = parseInt(input.value) || 0;
+      input.value = val + 1;
+      display.textContent = `×${input.value}`;
+    });
+
+    minus.addEventListener('click', () => {
+      let val = parseInt(input.value) || 0;
+      if (val > 0) {
+        input.value = val - 1;
+        display.textContent = input.value > 0 ? `×${input.value}` : '';
+      }
+    });
+
+    // Sync manual input changes
+    input.addEventListener('input', () => {
+      let val = parseInt(input.value) || 0;
+      if (val < 0) input.value = 0;
+      display.textContent = val > 0 ? `×${val}` : '';
+    });
+  });
+});
+</script>
+
+<!-- Footer -->
+<div style="text-align: center; padding: 80px 20px; margin-top: 60px; background: #050505;">
+  <img src="beavis.png" alt="THANK YOU! COME AGAIN"
+       style="max-width: 380px; width: 100%; height: auto; image-rendering: pixelated; border: 6px solid #222; box-shadow: 0 0 30px #0a0;">
+</div>
+
+</body>
+</html>
