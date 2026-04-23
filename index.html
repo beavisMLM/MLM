@@ -570,10 +570,10 @@ button:hover { background: #ff5a3c; }
   type="text" 
   id="tx" 
   placeholder="TX Hash" 
-  pattern="[a-z]{60}" 
+  pattern="[a-zA-Z]{60}" 
   required
-  oninvalid="this.setCustomValidity('60 small letters format required')" 
-  oninput="this.value = this.value.toUpperCase(); this.setCustomValidity('')"
+  oninvalid="this.setCustomValidity('60 letters required')" 
+  oninput="this.setCustomValidity('')"
 >
     <h2>Select Grayprints</h2>
     <div class="order-grid">
