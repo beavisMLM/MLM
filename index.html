@@ -195,6 +195,32 @@ button:hover { background: #ff5a3c; }
   margin: 0;
   padding: 4px;
 }
+  .submit-wrapper{
+  position:relative;
+}
+
+.coming-soon-overlay{
+  position:absolute;
+  inset:0;
+  z-index:999;
+  background:rgba(120,120,120,.55);
+  backdrop-filter:blur(2px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.coming-soon-overlay span{
+  padding:20px 34px;
+  font-size:44px;
+  font-weight:bold;
+  letter-spacing:4px;
+  color:#fff;
+  background:rgba(0,0,0,.45);
+  border:2px solid rgba(255,255,255,.25);
+  text-shadow:0 0 12px #000;
+}
 </style>
 </head>
 <body>
@@ -560,7 +586,10 @@ button:hover { background: #ff5a3c; }
 </div>
 
 <!-- SUBMIT ORDER - Original Style -->
-<div id="submit" class="section">
+<div id="submit" class="section submit-wrapper">
+  <div class="coming-soon-overlay">
+  <span>COMING SOON</span>
+</div>
   <h1>SUBMIT ORDER</h1>
   <div class="discord-box">
     Join Discord to receive updates on your order<br><br>
