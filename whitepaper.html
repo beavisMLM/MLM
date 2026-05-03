@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PRINTER ROADMAP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  background: #050505;
+  color: #e0e0e0;
+  font-family: monospace;
+  scroll-behavior: smooth;
+}
+.hero {
+  width: 100%;
+  height: 100vh;
+  background: url("printer-roadmap-banner.png") top center no-repeat;
+  background-size: contain;
+  background-color: black;
+}
+.section {
+  padding: 80px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+h1 { color: #ff3c1f; font-size: 42px; }
+h2 { color: #ff3c1f; }
+p { line-height: 1.6; }
+a {
+  color: #ff3c1f;
+  text-decoration: none;
+}
+a:hover {
+  color: #ff6a4d;
+}
+.roadmap-container {
+  text-align: center;
+  margin: 40px 0;
+}
+.roadmap-container img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  border: 4px solid #ff3c1f;
+  box-shadow: 0 0 25px rgba(255, 60, 31, 0.3);
+}
+
+/* Sidebar - identical to main site */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 60px;
+  background: #0a0a0a;
+  border-right: 2px solid #ff3c1f;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  z-index: 9999;
+}
+.sidebar:hover { width: 220px; }
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  color: #e0e0e0;
+  text-decoration: none;
+  border-bottom: 1px solid #1a1a1a;
+}
+.nav-item:hover { background: rgba(255,60,31,0.1); }
+.nav-item.active {
+  background: rgba(255,60,31,0.25);
+  border-left: 3px solid #ff3c1f;
+}
+.nav-icon { min-width: 30px; color: #ff3c1f; }
+.nav-text {
+  opacity: 0;
+  margin-left: 10px;
+  transition: 0.2s;
+}
+.sidebar:hover .nav-text { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <a class="nav-item" href="index.html"><div class="nav-icon">⌂</div><div class="nav-text">HOME</div></a>
+  <a class="nav-item" href="index.html#home"><div class="nav-icon">?</div><div class="nav-text">HOW IT WORKS</div></a>
+  <a class="nav-item" href="index.html#offer"><div class="nav-icon">★</div><div class="nav-text">OFFER</div></a>
+  <a class="nav-item" href="index.html#submit"><div class="nav-icon">✉</div><div class="nav-text">SUBMIT</div></a>
+  <a class="nav-item" href="index.html#join"><div class="nav-icon">+</div><div class="nav-text">JOIN US</div></a>
+  <a class="nav-item active" href="whitepaper.html"><div class="nav-icon">📄</div><div class="nav-text">ROADMAP</div></a>
+  <a class="nav-item" href="https://discord.gg/CgS6Gjhx" target="_blank"><div class="nav-icon">🎮</div><div class="nav-text">DISCORD</div></a>
+  <a class="nav-item" href="https://mylastmatch.fandom.com" target="_blank"><div class="nav-icon">🧠</div><div class="nav-text">WIKI</div></a>
+</div>
+
+<div class="hero"></div>
+
+<div class="section">
+  <h1>PRINTER ROADMAP</h1>
+  <p style="font-size:1.25em; max-width:800px; margin:0 auto 40px; text-align:center;">
+    Official development and launch plan for the PRINTER project — delivering exclusive Grayprints and powerful technologies to the <strong>My Last Match</strong> community.
+  </p>
+
+  <div class="roadmap-container">
+    <img src="printer-roadmap.png" alt="PRINTER ROADMAP" style="width:920px;">
+  </div>
+
+  <p style="max-width:720px; margin:50px auto; font-size:1.1em; text-align:center;">
+    We are committed to full transparency. Join our Discord for real-time updates and community feedback as we progress.
+  </p>
+
+  <div style="text-align:center; margin-top:40px;">
+    <a href="https://discord.gg/CgS6Gjhx" style="font-size:1.4em; padding:12px 30px; border:2px solid #ff3c1f; display:inline-block;">
+      JOIN DISCORD FOR UPDATES →
+    </a>
+  </div>
+</div>
+
+<!-- Footer matching main site -->
+<div style="text-align: center; padding: 80px 20px; margin-top: 60px; background: #050505;">
+  <img src="beavis.png" alt="THANK YOU! COME AGAIN"
+       style="max-width: 380px; width: 100%; height: auto; image-rendering: pixelated; border: 6px solid #222; box-shadow: 0 0 30px #0a0;">
+</div>
+</body>
+</html>
