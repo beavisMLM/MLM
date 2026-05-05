@@ -872,18 +872,14 @@ button:hover { background: #ff5a3c; }
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-
   const filterSidebar = document.getElementById('filterSidebar');
 
   // === SHOW / HIDE FILTER BASED ON #offer SECTION ===
   function toggleFilterVisibility() {
     const offerSection = document.getElementById('offer');
     if (!offerSection) return;
-
     const rect = offerSection.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-
-    // Show filter when at least 30% of #offer is visible
     if (rect.top < windowHeight * 0.7 && rect.bottom > windowHeight * 0.3) {
       filterSidebar.classList.add('active');
     } else {
@@ -904,7 +900,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const display = card.querySelector('.quantity-display');
     const plus = card.querySelector('.plus');
     const minus = card.querySelector('.minus');
-
     if (!input || !plus || !minus) return;
 
     plus.addEventListener('click', () => {
@@ -928,7 +923,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // === FILTERING SYSTEM ===
+  // === FILTERING SYSTEM (UPDATED) ===
   function filterItems() {
     const checked = Array.from(document.querySelectorAll('.category-filter:checked'))
                          .map(cb => cb.value);
@@ -937,7 +932,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const itemCats = (card.getAttribute('data-categories') || '').split(' ');
 
       if (checked.length === 0) {
-        card.style.display = '';
+        card.style.display = 'none';        // ← CHANGED: Hide all when nothing selected
       } else {
         const match = checked.some(cat => itemCats.includes(cat));
         card.style.display = match ? '' : 'none';
