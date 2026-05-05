@@ -306,9 +306,33 @@ button:hover { background: #ff5a3c; }
 
 </div>
 <!-- OFFER -->
+<!-- OFFER -->
 <div id="offer" class="section">
   <h1>PRINTER-exclusive GPs:</h1>
-  <div class="market-grid">
+
+  <!-- FILTER WIDGET - Only appears in Offer section -->
+  <div class="offer-container">
+    
+    <!-- Filter Sidebar (inside offer) -->
+    <div class="filter-sidebar">
+      <h3>FILTER CATEGORIES</h3>
+      <div class="filter-group">
+        <label><input type="checkbox" class="category-filter" value="Weapons" checked> Weapons</label>
+        <label><input type="checkbox" class="category-filter" value="Traps" checked> Traps</label>
+        <label><input type="checkbox" class="category-filter" value="Armors" checked> Armors</label>
+        <label><input type="checkbox" class="category-filter" value="Visibility" checked> Visibility / Camo</label>
+        <label><input type="checkbox" class="category-filter" value="Food" checked> Food / Consumables</label>
+        <label><input type="checkbox" class="category-filter" value="PvP" checked> PvP</label>
+        <label><input type="checkbox" class="category-filter" value="Radio" checked> Radio / Comms</label>
+        <label><input type="checkbox" class="category-filter" value="Vehicles" checked> Vehicles</label>
+        <label><input type="checkbox" class="category-filter" value="Electricity" checked> Electricity</label>
+        <label><input type="checkbox" class="category-filter" value="Radioactivity" checked> Radioactivity</label>
+      </div>
+    </div>
+
+    <!-- Market Grid -->
+    <div class="market-grid">
+      <!-- All your cards stay exactly the same here -->
     <!-- All main cards with + / - -->
     <div class="card" data-item-id="i19">
       <img src="grayprint-spiked-club.png">
