@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PRINTER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  background: #050505;
+  color: #e0e0e0;
+  font-family: monospace;
+  scroll-behavior: smooth;
+}
+.hero {
+  width: 100%;
+  height: 100vh;
+  background: url("printer.png") top center no-repeat;
+  background-size: contain;
+  background-color: black;
+}
+.section {
+  padding: 80px 20px;
+  max-width: 900px;
+  margin: auto;
+}
+h1 { color: #ff3c1f; font-size: 42px; }
+h2 { color: #ff3c1f; }
+p { line-height: 1.6; }
+a { color: #ff3c1f; text-decoration: none; }
+a:hover { color: #ff6a4d; }
+
+/* Filter Sidebar */
+.filter-sidebar {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 240px;
+  background: #0a0a0a;
+  border: 2px solid #ff3c1f;
+  padding: 20px;
+  border-radius: 4px;
+  z-index: 900;
+  font-size: 14px;
+  box-shadow: 0 0 15px rgba(255,60,31,0.2);
+}
+.filter-sidebar h3 {
+  margin: 0 0 15px 0;
+  color: #ff3c1f;
+  text-align: center;
+}
+.filter-group label {
+  display: block;
+  margin: 8px 0;
+  cursor: pointer;
+}
+.filter-group input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Rest of your original styles */
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+.card {
+  background: #0b0b0b;
+  border: 1px solid #222;
+  padding: 15px;
+  text-align: center;
+  transition: 0.2s;
+}
+.card:hover {
+  border-color: #ff3c1f;
+  transform: translateY(-3px);
+  box-shadow: 0 0 12px rgba(255,60,31,0.2);
+}
+.card img {
+  width: 135px;
+  height: 135px;
+  image-rendering: pixelated;
+}
+.card h3 { margin: 8px 0 5px; }
+.card .desc { font-size: 12px; opacity: 0.7; }
+.card .price { margin-top: 8px; color: #ff3c1f; font-weight: bold; }
+
+/* Quantity controls */
+.quantity-controls {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+.plus { color: #00cc00; }
+.minus { color: #0066ff; }
+.plus:hover { color: #00ff00; }
+.minus:hover { color: #3399ff; }
+.quantity-display {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #ff3c1f;
+  font-weight: bold;
+}
+
+/* Your other styles... */
+.sidebar { ... } /* keep all your original styles */
+ /* (I kept them all - just omitted here for brevity) */
+</style>
+</head>
+<body>
+
+<!-- FILTER WIDGET -->
+<div class="filter-sidebar">
+  <h3>FILTER CATEGORIES</h3>
+  <div class="filter-group">
+    <label><input type="checkbox" class="category-filter" value="Weapons" checked> Weapons</label>
+    <label><input type="checkbox" class="category-filter" value="Traps" checked> Traps</label>
+    <label><input type="checkbox" class="category-filter" value="Armors" checked> Armors</label>
+    <label><input type="checkbox" class="category-filter" value="Visibility" checked> Visibility</label>
+    <label><input type="checkbox" class="category-filter" value="Food" checked> Food</label>
+    <label><input type="checkbox" class="category-filter" value="PvP" checked> PvP</label>
+    <label><input type="checkbox" class="category-filter" value="Radio" checked> Radio</label>
+    <label><input type="checkbox" class="category-filter" value="Vehicles" checked> Vehicles</label>
+    <label><input type="checkbox" class="category-filter" value="Electricity" checked> Electricity</label>
+    <label><input type="checkbox" class="category-filter" value="Radioactivity" checked> Radioactivity</label>
+  </div>
+  <button onclick="resetFilters()" style="margin-top:15px; width:100%; padding:10px;">Reset All Filters</button>
+</div>
+
+<!-- Your existing sidebar, hero, etc. stay the same -->
+<div class="sidebar"> ... </div>
+<div class="hero"></div>
+
+<!-- HOME section remains unchanged -->
+<div id="home" class="section"> ... </div>
+
+<!-- OFFER SECTION - UPDATED WITH CATEGORIES -->
+<div id="offer" class="section">
+  <h1>PRINTER-exclusive GPs:</h1>
+  <div class="market-grid">
+
+    <div class="card" data-item-id="i19" data-categories="Weapons">
+      <img src="grayprint-spiked-club.png">
+      <h3>Spiked Club</h3>
+      <p class="desc">Brutal melee weapon.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Spiked_Club" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i10" data-categories="Weapons">
+      <img src="grayprint-handgun.png">
+      <h3>Handgun</h3>
+      <p class="desc">Deadly sidearm.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Handgun" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i11" data-categories="Weapons">
+      <img src="grayprint-handgun-shot.png">
+      <h3>Handgun Shot</h3>
+      <p class="desc">Ammo pack.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Handgun_Shot" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i9" data-categories="Radioactivity">
+      <img src="grayprint-geiger-counter.png">
+      <h3>Geiger Counter</h3>
+      <p class="desc">Radioactivity gatekeeper.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Geiger_Counter" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i18" data-categories="Electricity">
+      <img src="grayprint-rubber-accumulator.png">
+      <h3>Rubber Accumulator</h3>
+      <p class="desc">Portable powerhouse.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Rubber_Accumulator" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i2" data-categories="Electricity">
+      <img src="grayprint-battery-adapter.png">
+      <h3>Battery Adapter</h3>
+      <p class="desc">Universal electric connector.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Battery_Adapter" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i5" data-categories="Electricity">
+      <img src="grayprint-faraday-casing.png">
+      <h3>Faraday Casing</h3>
+      <p class="desc">Thunderstrike protection.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Faraday_Casing" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i22" data-categories="Visibility">
+      <img src="grayprint-universal-camo.png">
+      <h3>Universal Camo</h3>
+      <p class="desc">Adaptive camouflage.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Universal_Camouflage" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i7" data-categories="Visibility">
+      <img src="grayprint-forest-camo.png">
+      <h3>Forest Camo</h3>
+      <p class="desc">Woodland camouflage.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Forest_Camouflage" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i4" data-categories="Radio">
+      <img src="grayprint-directional-antenna.png">
+      <h3>Directional Antenna</h3>
+      <p class="desc">Radio signal booster.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Directional_Antenna" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i8" data-categories="Vehicles">
+      <img src="grayprint-fuel-siphon.png">
+      <h3>Fuel Siphon</h3>
+      <p class="desc">Extracts diesel & gas.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Fuel_Siphon" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i6" data-categories="Traps Food">
+      <img src="grayprint-fish-trap.png">
+      <h3>Fish Trap</h3>
+      <p class="desc">Passive fishing.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Fish_Trap" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i15" data-categories="Food">
+      <img src="grayprint-last-drink.png">
+      <h3>Last Drink</h3>
+      <p class="desc">Delays death to save the loot.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Last_Drink" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i13" data-categories="Traps">
+      <img src="grayprint-jaw-lock.png">
+      <h3>Jaw Lock</h3>
+      <p class="desc">Animal bait that locks the jaws.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Jaw_Lock" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i14" data-categories="Traps">
+      <img src="grayprint-ketchup-vibration-detector.png">
+      <h3>Ketchup Detector</h3>
+      <p class="desc">Trigger mechanism.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Ketchup_Vibration_Detector" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i21" data-categories="Traps">
+      <img src="grayprint-trip-trap.png">
+      <h3>Trip Trap</h3>
+      <p class="desc">Simple yet effective trap.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Trip_Trap" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i17" data-categories="Vehicles">
+      <img src="grayprint-muffler-whistle.png">
+      <h3>Muffler Whistle</h3>
+      <p class="desc">Lures Dementals into vehicles.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Muffler_Whistle" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i1" data-categories="Vehicles Traps">
+      <img src="grayprint-anti-vehicle-hedgehogs.png">
+      <h3>Hedgehogs</h3>
+      <p class="desc">Extra strong vehicle blockade.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Anti-Vehicle_Hedgehogs" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i16" data-categories="Vehicles Traps">
+      <img src="grayprint-mine-sweeper.png">
+      <h3>Mine Sweeper</h3>
+      <p class="desc">Clears mines and traps.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Mine_Sweeper" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i3" data-categories="Vehicles">
+      <img src="grayprint-crash-cocoon.png">
+      <h3>Crash Cocoon</h3>
+      <p class="desc">Every driver's essential.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Crash_Cocoon" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i12" data-categories="Vehicles">
+      <img src="grayprint-headlight-lid.png">
+      <h3>Headlight Lid</h3>
+      <p class="desc">Armored light protection.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Headlight_Lid" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+  </div>
+
+  <h1 style="margin-top: 50px;">Partners GPs:</h1>
+  <div class="market-grid">
+    <!-- I assigned categories to all of them too -->
+    <div class="card" data-item-id="i20" data-categories="Weapons">
+      <img src="grayprint-tripplegun.png">
+      <h3>Tripplegun</h3>
+      <p class="desc">Handgun with three barrels.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Thermodifferentiator" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i20" data-categories="Weapons">
+      <img src="grayprint-spring-pusher.png">
+      <h3>Spring Pusher</h3>
+      <p class="desc">Deadly pebbles shooter.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Thermodifferentiator" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i23" data-categories="Weapons">
+      <img src="grayprint-tin-can-grenade.png">
+      <h3>Tin Can Grenade</h3>
+      <p class="desc">Throwable explosives.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Tin_Can_Grenade" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i20" data-categories="PvP">
+      <img src="grayprint-thermodifferentiator.png">
+      <h3>Thermodifferentiator</h3>
+      <p class="desc">Tracks enemies - PvP must.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Thermodifferentiator" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i20" data-categories="PvP">
+      <img src="grayprint-parabolic-ears.png">
+      <h3>Parabolic Ears</h3>
+      <p class="desc">Let you hear nearby mobs.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Thermodifferentiator" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i24" data-categories="Armors">
+      <img src="grayprint-crow-amulet.png">
+      <h3>Crow Amulet</h3>
+      <p class="desc">Protects from Dementals.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Crow_Amulet" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <!-- Tire armor set -->
+    <div class="card" data-item-id="i24" data-categories="Armors">
+      <img src="grayprint-tire-vest.png"><h3>Tire Vest</h3><p class="desc">Torso protection.</p>
+      <div class="price">PRICE TBD</div><a href="https://mylastmatch.fandom.com/wiki/Crow_Amulet" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div><div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i24" data-categories="Armors">
+      <img src="grayprint-tire-arms.png"><h3>Tire Arm Sleeves</h3><p class="desc">Arms protection.</p>
+      <div class="price">PRICE TBD</div><a href="https://mylastmatch.fandom.com/wiki/Crow_Amulet" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div><div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i24" data-categories="Armors">
+      <img src="grayprint-tire-legs.png"><h3>Tire Leg Sleeves</h3><p class="desc">Legs protection.</p>
+      <div class="price">PRICE TBD</div><a href="https://mylastmatch.fandom.com/wiki/Crow_Amulet" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div><div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i24" data-categories="Food">
+      <img src="grayprint-juliets-elixir.png">
+      <h3>Juliets Elixir</h3>
+      <p class="desc">Causes constant coma.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Crow_Amulet" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i24" data-categories="Traps Vehicles">
+      <img src="grayprint-caltrops.png">
+      <h3>Caltrops</h3>
+      <p class="desc">Tire killers.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Crow_Amulet" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+
+    <div class="card" data-item-id="i24" data-categories="Visibility Vehicles">
+      <img src="grayprint-vehicle-camouflage.png">
+      <h3>Vehicle Camouflage</h3>
+      <p class="desc">Decreases vehicle's visibility.</p>
+      <div class="price">PRICE TBD</div>
+      <a href="https://mylastmatch.fandom.com/wiki/Crow_Amulet" target="_blank">→ wiki</a>
+      <div class="quantity-controls"><span class="minus">-</span><span class="plus">+</span></div>
+      <div class="quantity-display"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Rest of your page (submit, join, footer) remains the same -->
+<!-- ... keep everything from <div id="submit"> down ... -->
+
+<script>
+// === YOUR ORIGINAL QUANTITY SCRIPT + FILTER SCRIPT ===
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Quantity controls (your original code)
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const itemId = card.dataset.itemId;
+    const input = document.getElementById(itemId);
+    const display = card.querySelector('.quantity-display');
+    const plus = card.querySelector('.plus');
+    const minus = card.querySelector('.minus');
+    if (!input || !plus || !minus) return;
+
+    plus.addEventListener('click', () => {
+      let val = parseInt(input.value) || 0;
+      input.value = val + 1;
+      display.textContent = `×${input.value}`;
+    });
+    minus.addEventListener('click', () => {
+      let val = parseInt(input.value) || 0;
+      if (val > 0) {
+        input.value = val - 1;
+        display.textContent = input.value > 0 ? `×${input.value}` : '';
+      }
+    });
+    input.addEventListener('input', () => {
+      let val = parseInt(input.value) || 0;
+      if (val < 0) input.value = 0;
+      display.textContent = val > 0 ? `×${val}` : '';
+    });
+  });
+
+  // === FILTERING LOGIC ===
+  function filterItems() {
+    const checked = Array.from(document.querySelectorAll('.category-filter:checked'))
+                         .map(cb => cb.value);
+
+    document.querySelectorAll('.card').forEach(card => {
+      const itemCats = (card.getAttribute('data-categories') || '').split(' ');
+      
+      if (checked.length === 0) {
+        card.style.display = '';
+      } else {
+        const match = checked.some(cat => itemCats.includes(cat));
+        card.style.display = match ? '' : 'none';
+      }
+    });
+  }
+
+  function resetFilters() {
+    document.querySelectorAll('.category-filter').forEach(cb => cb.checked = true);
+    filterItems();
+  }
+
+  // Attach filter listeners
+  document.querySelectorAll('.category-filter').forEach(filter => {
+    filter.addEventListener('change', filterItems);
+  });
+
+  // Initial filter run
+  filterItems();
+
+  // Your original order form script...
+  // (keep your webhook code here)
+});
+</script>
+
+</body>
+</html>
