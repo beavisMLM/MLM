@@ -802,7 +802,7 @@ button:hover { background: #ff5a3c; }
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-  // Quantity controls (+/- buttons)
+  // ====================== QUANTITY CONTROLS (your original code) ======================
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
     const itemId = card.dataset.itemId;
@@ -810,7 +810,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const display = card.querySelector('.quantity-display');
     const plus = card.querySelector('.plus');
     const minus = card.querySelector('.minus');
-
+    
     if (!input || !plus || !minus) return;
 
     plus.addEventListener('click', () => {
@@ -827,7 +827,6 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
 
-    // Sync if user types manually
     input.addEventListener('input', () => {
       let val = parseInt(input.value) || 0;
       if (val < 0) input.value = 0;
@@ -835,43 +834,53 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // === WEBHOOK SUBMISSION ===
+  // ====================== FILTERING SYSTEM (NEW) ======================
+  function filterItems() {
+    const checkedCategories = Array.from(document.querySelectorAll('.category-filter:checked'))
+                                   .map(checkbox => checkbox.value);
+
+    document.querySelectorAll('.card').forEach(card => {
+      const itemCategories = (card.getAttribute('data-categories') || '').split(' ').filter(Boolean);
+
+      if (checkedCategories.length === 0) {
+        card.style.display = '';
+      } else {
+        const matches = checkedCategories.some(cat => itemCategories.includes(cat));
+        card.style.display = matches ? '' : 'none';
+      }
+    });
+  }
+
+  function resetFilters() {
+    document.querySelectorAll('.category-filter').forEach(cb => {
+      cb.checked = true;
+    });
+    filterItems();
+  }
+
+  // Attach filter listeners
+  document.querySelectorAll('.category-filter').forEach(checkbox => {
+    checkbox.addEventListener('change', filterItems);
+  });
+
+  // Initial filter run
+  filterItems();
+
+  // ====================== WEBHOOK SUBMISSION (your original code) ======================
   document.getElementById("orderForm").addEventListener("submit", async function(e) {
     e.preventDefault();
-
     const wallet = document.getElementById("wallet").value.trim();
     const tx = document.getElementById("tx").value.trim();
-
-    // Updated item list (must match the order of your inputs i1 to i24)
+    
     const items = [
-      "Anti-vehicle Hedgehogs",   // i1
-      "Battery Adapter",          // i2
-      "Crash Cocoon",             // i3
-      "Directional Antenna",      // i4
-      "Faraday Casing",           // i5
-      "Fish Trap",                // i6
-      "Forest Camo",              // i7
-      "Fuel Siphon",              // i8
-      "Geiger Counter",           // i9
-      "Handgun",                  // i10
-      "Handgun Shot",             // i11
-      "Headlight Lid",            // i12
-      "Jaw Lock",                 // i13
-      "Ketchup Vibration Detector", // i14
-      "Last Drink",               // i15
-      "Mine Sweeper",             // i16
-      "Muffler Whistle",          // i17
-      "Rubber Accumulator",       // i18
-      "Spiked Club",              // i19
-      "Thermodifferentiator",     // i20
-      "Trip Trap",                // i21
-      "Universal Camo",           // i22
-      "Tin Can Grenade",          // i23
-      "Crow Amulet"               // i24
+      "Anti-vehicle Hedgehogs", "Battery Adapter", "Crash Cocoon", "Directional Antenna",
+      "Faraday Casing", "Fish Trap", "Forest Camo", "Fuel Siphon", "Geiger Counter",
+      "Handgun", "Handgun Shot", "Headlight Lid", "Jaw Lock", "Ketchup Vibration Detector",
+      "Last Drink", "Mine Sweeper", "Muffler Whistle", "Rubber Accumulator", "Spiked Club",
+      "Thermodifferentiator", "Trip Trap", "Universal Camo", "Tin Can Grenade", "Crow Amulet"
     ];
 
     let orderList = "";
-
     for (let i = 1; i <= 24; i++) {
       const qty = parseInt(document.getElementById("i" + i).value) || 0;
       if (qty > 0) {
@@ -880,12 +889,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const payload = {
-      content:
-`NEW PRINTER ORDER
-Wallet: ${wallet}
-TX: ${tx}
-Items:
-${orderList || "None selected"}`
+      content: `NEW PRINTER ORDER\nWallet: ${wallet}\nTX: ${tx}\nItems:\n${orderList || "None selected"}`
     };
 
     try {
@@ -894,18 +898,15 @@ ${orderList || "None selected"}`
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-
       alert("Order submitted successfully!");
-      // Optional: reset form after success
-      // document.getElementById("orderForm").reset();
     } catch (error) {
       console.error("Webhook error:", error);
       alert("Failed to submit order. Please try again or contact support.");
     }
   });
+
 });
 </script>
-
 <!-- Footer -->
 <div style="text-align: center; padding: 80px 20px; margin-top: 60px; background: #050505;">
   <img src="beavis.png" alt="THANK YOU! COME AGAIN"
