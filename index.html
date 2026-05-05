@@ -221,16 +221,15 @@ button:hover { background: #ff5a3c; }
   border:2px solid rgba(255,255,255,.25);
   text-shadow:0 0 12px #000;
 }
-  /* Offer Section Layout */
 .offer-container {
   display: flex;
   gap: 30px;
   align-items: flex-start;
+  margin-top: 20px;
 }
 
-/* Filter Sidebar - Now inside offer */
 .filter-sidebar {
-  width: 240px;
+  width: 260px;
   background: #0a0a0a;
   border: 2px solid #ff3c1f;
   padding: 20px;
@@ -256,12 +255,17 @@ button:hover { background: #ff5a3c; }
   margin-right: 8px;
 }
 
-/* Make market-grid take remaining space */
+/* Make market grid take the rest of the space */
 .market-grid {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 25px;
+}
+
+/* Override section max-width only for offer */
+#offer.section {
+  max-width: 1300px !important;
 }
 </style>
 </head>
