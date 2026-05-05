@@ -221,6 +221,48 @@ button:hover { background: #ff5a3c; }
   border:2px solid rgba(255,255,255,.25);
   text-shadow:0 0 12px #000;
 }
+  /* Offer Section Layout */
+.offer-container {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+/* Filter Sidebar - Now inside offer */
+.filter-sidebar {
+  width: 240px;
+  background: #0a0a0a;
+  border: 2px solid #ff3c1f;
+  padding: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 20px;
+}
+
+.filter-sidebar h3 {
+  margin: 0 0 15px 0;
+  color: #ff3c1f;
+  text-align: center;
+}
+
+.filter-group label {
+  display: block;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.filter-group input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Make market-grid take remaining space */
+.market-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
 </style>
 </head>
 <body>
