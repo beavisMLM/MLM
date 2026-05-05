@@ -284,6 +284,23 @@ button:hover { background: #ff5a3c; }
 .filter-sidebar button:hover {
   background: #ff6a4d;
 }
+  .clear-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: #333;
+  color: #ff3c1f;
+  border: 1px solid #ff3c1f;
+  font-family: monospace;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.clear-btn:hover {
+  background: #ff3c1f;
+  color: white;
+}
 </style>
 </head>
 <body>
@@ -302,6 +319,7 @@ button:hover { background: #ff5a3c; }
 <!-- FILTER WIDGET - FIXED -->
 <div class="filter-sidebar" id="filterSidebar">
   <h3>FILTER CATEGORIES</h3>
+  
   <div class="filter-group">
     <label><input type="checkbox" class="category-filter" value="Combat" checked> Combat</label>
     <label><input type="checkbox" class="category-filter" value="Traps" checked> Traps</label>
@@ -315,6 +333,9 @@ button:hover { background: #ff5a3c; }
     <label><input type="checkbox" class="category-filter" value="Electricity" checked> Electricity</label>
     <label><input type="checkbox" class="category-filter" value="Radioactivity" checked> Radioactivity</label>
   </div>
+
+  <!-- NEW CLEAR BUTTON -->
+  <button id="clearFilters" class="clear-btn">Clear All Filters</button>
 </div>
 
 <div class="hero"></div>
@@ -874,7 +895,7 @@ button:hover { background: #ff5a3c; }
 document.addEventListener("DOMContentLoaded", function() {
   const filterSidebar = document.getElementById('filterSidebar');
 
-  // === SHOW / HIDE FILTER BASED ON #offer SECTION ===
+  // === SHOW / HIDE FILTER ===
   function toggleFilterVisibility() {
     const offerSection = document.getElementById('offer');
     if (!offerSection) return;
@@ -887,10 +908,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Run on scroll + on load
   window.addEventListener('scroll', toggleFilterVisibility);
   window.addEventListener('resize', toggleFilterVisibility);
-  toggleFilterVisibility(); // Initial check
+  toggleFilterVisibility();
 
   // === QUANTITY CONTROLS ===
   const cards = document.querySelectorAll('.card');
@@ -923,7 +943,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // === FILTERING SYSTEM (UPDATED) ===
+  // === FILTERING SYSTEM ===
   function filterItems() {
     const checked = Array.from(document.querySelectorAll('.category-filter:checked'))
                          .map(cb => cb.value);
@@ -932,7 +952,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const itemCats = (card.getAttribute('data-categories') || '').split(' ');
 
       if (checked.length === 0) {
-        card.style.display = 'none';        // ← CHANGED: Hide all when nothing selected
+        card.style.display = 'none';
       } else {
         const match = checked.some(cat => itemCats.includes(cat));
         card.style.display = match ? '' : 'none';
@@ -940,18 +960,25 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  function resetFilters() {
-    document.querySelectorAll('.category-filter').forEach(cb => cb.checked = true);
+  // NEW: Clear All Filters
+  function clearAllFilters() {
+    document.querySelectorAll('.category-filter').forEach(cb => {
+      cb.checked = false;
+    });
     filterItems();
   }
 
+  // Event Listeners
   document.querySelectorAll('.category-filter').forEach(filter => {
     filter.addEventListener('change', filterItems);
   });
 
-  filterItems(); // Initial filter
+  const clearBtn = document.getElementById('clearFilters');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', clearAllFilters);
+  }
 
-  // === ORDER FORM (keep your existing webhook code here) ===
+  filterItems(); // Initial filter
 });
 </script>
 
