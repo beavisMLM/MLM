@@ -959,12 +959,24 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // NEW: Clear All Filters
+  // UPDATED: Clear All Filters + Scroll to Offer Section
   function clearAllFilters() {
+    // Uncheck all filters
     document.querySelectorAll('.category-filter').forEach(cb => {
       cb.checked = false;
     });
+
+    // Apply filter (hide all items)
     filterItems();
+
+    // Smooth scroll to the Offer section
+    const offerSection = document.getElementById('offer');
+    if (offerSection) {
+      offerSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   }
 
   // Event Listeners
