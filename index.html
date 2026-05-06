@@ -974,17 +974,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // UPDATED: Clear All Filters + Scroll to Offer Section
+  // === CLEAR ALL ===
   function clearAllFilters() {
-    // Uncheck all filters
     document.querySelectorAll('.category-filter').forEach(cb => {
       cb.checked = false;
     });
 
-    // Apply filter (hide all items)
     filterItems();
 
-    // Smooth scroll to the Offer section
     const offerSection = document.getElementById('offer');
     if (offerSection) {
       offerSection.scrollIntoView({
@@ -994,7 +991,24 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Event Listeners
+  // === SHOW ALL (NEW) ===
+  function showAllFilters() {
+    document.querySelectorAll('.category-filter').forEach(cb => {
+      cb.checked = true;
+    });
+
+    filterItems();
+
+    const offerSection = document.getElementById('offer');
+    if (offerSection) {
+      offerSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+
+  // === EVENT LISTENERS ===
   document.querySelectorAll('.category-filter').forEach(filter => {
     filter.addEventListener('change', filterItems);
   });
@@ -1002,6 +1016,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const clearBtn = document.getElementById('clearFilters');
   if (clearBtn) {
     clearBtn.addEventListener('click', clearAllFilters);
+  }
+
+  const showAllBtn = document.getElementById('showAllFilters');
+  if (showAllBtn) {
+    showAllBtn.addEventListener('click', showAllFilters);
   }
 
   filterItems(); // Initial filter
