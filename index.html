@@ -226,7 +226,7 @@ button:hover { background: #ff5a3c; }
   position: fixed;
   top: 100px;
   right: 20px;
-  width: 200px;           /* Increased width */
+  width: 200px;
   background: #0a0a0a;
   border: 2px solid #ff3c1f;
   padding: 15px;
@@ -234,7 +234,7 @@ button:hover { background: #ff5a3c; }
   z-index: 900;
   font-size: 14px;
   box-shadow: 0 0 15px rgba(255,60,31,0.2);
-  
+
   opacity: 0;
   visibility: hidden;
   transition: all 0.4s ease;
@@ -269,37 +269,50 @@ button:hover { background: #ff5a3c; }
   height: 16px;
 }
 
+/* === BUTTON ROW (NEW) === */
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* Base button style */
 .filter-sidebar button {
-  margin-top: 18px;
-  width: 100%;
-  padding: 11px;
+  flex: 1;
+  width: auto;              /* override old 100% */
+  padding: 6px 0;
+  font-size: 12px;
   background: #ff3c1f;
   color: white;
   border: none;
   font-family: monospace;
-  font-size: 14px;
   cursor: pointer;
 }
 
+/* Hover */
 .filter-sidebar button:hover {
   background: #ff6a4d;
 }
-  .clear-btn {
-  margin-top: 15px;
-  width: 100%;
-  padding: 10px;
+
+/* Clear button variant */
+.clear-btn {
   background: #333;
   color: #ff3c1f;
   border: 1px solid #ff3c1f;
-  font-family: monospace;
-  font-size: 13px;
-  cursor: pointer;
-  border-radius: 3px;
 }
 
 .clear-btn:hover {
   background: #ff3c1f;
   color: white;
+}
+
+/* Optional: make "All" slightly distinct */
+#showAllFilters {
+  background: #1f8cff;
+}
+
+#showAllFilters:hover {
+  background: #4da6ff;
 }
 </style>
 </head>
